@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/styles2.css">
+</head>
+<body>
+    <div id="timer">02:00</div>
+    <div class="form-container">
+        <form id="form-contato" onsubmit="return validarFormulario()">
+            <h2>Formulário de Contato</h2>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+            
+            <label for="email">Email do seu pet:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" oninput="verificarSenha()" required>
+            
+            <div id="mensagem-senha" class="mensagem-senha"></div>
+            
+            <label for="mensagem">Mensagem:</label>
+            <textarea id="mensagem" name="mensagem" rows="4" required></textarea>
+            
+            <div class="termo-aceitacao">
+                <input type="checkbox" id="aceito-termos" name="aceito-termos">
+                <label for="aceito-termos">Eu li e não aceito os <a href="#">termos e condições</a>.</label>
+            </div>
+            
+            <div id="mensagem-erro" class="mensagem-erro"></div>
+            
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+    
+    <script>
+        function verificarSenha() {
+            var senha = document.getElementById("senha").value;
+            var mensagemSenha = document.getElementById("mensagem-senha");
+            if (senha === "32Caracterescomumaletramaiuscula") {
+                mensagemSenha.textContent = "THE PASSWORD IS CORRECT";
+                mensagemSenha.style.color = "green";
+            } else {
+                mensagemSenha.textContent = "A senha deve conter: 32Caracterescomumaletramaiuscula";
+                mensagemSenha.style.color = "red";
+            }
+        }
+        
+        function validarFormulario() {
+            var senha = document.getElementById("senha").value;
+            var aceitoTermos = document.getElementById("aceito-termos").checked;
+            var mensagemErro = document.getElementById("mensagem-erro");
+            
+            if (senha !== "32Caracterescomumaletramaiuscula") {
+                mensagemErro.textContent = "Por favor, insira a senha correta.";
+                mensagemErro.style.color = "red";
+                return false;
+            }
+            
+            if (aceitoTermos) {
+                mensagemErro.textContent = "Você deve aceitar os termos e condições para enviar o formulário.";
+                mensagemErro.style.color = "red";
+                return false;
+            }
+            
+            mensagemErro.textContent = "";
+            
+            // Redirecionar para a página page03.html
+            window.location.href = "page03.html";
+            return false; // Impede o envio do formulário para permitir o redirecionamento
+        }
+        function startTimer(duration, display) {
+                var timer = duration, minutes, seconds;
+                setInterval(function () {
+                    minutes = parseInt(timer / 60, 10);
+                    seconds = parseInt(timer % 60, 10);
+
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                    display.textContent = minutes + ":" + seconds;
+
+                    if (--timer < 0) {
+                        timer = 0;
+                        alert("O tempo acabou!");
+                    }
+                }, 1000);
+            }
+
+            window.onload = function () {
+                var twoMinutes = 60 * 2,  // Alterado para 2 minutos
+                    display = document.querySelector('#timer');
+                startTimer(twoMinutes, display);
+            };
+    </script>
+</body>
+</html>

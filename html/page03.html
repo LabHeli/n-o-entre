@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/styles3.css">
+</head>
+<body>
+    <div id="timer">02:00</div>
+    <form onsubmit="return validarSelecao()">
+        <h1>Agora para continuar: </h1>
+        <fieldset>
+            <legend>Escolha seus itens favoritos</legend>
+            <label>
+                <input type="checkbox" name="item" value="item1">
+                Item 1: Viagem espacial
+            </label>
+            <label>
+                <input type="checkbox" name="item" value="item2">
+                Item 2: Robotica
+            </label>
+            <label>
+                <input type="checkbox" onclick="selecionarTodos()" name="item" value="item3">
+                Item 3: Programação
+            </label>
+            <label>
+                <input type="checkbox" name="item" value="item4">
+                Item 4: Pintura
+            </label>
+            <label>
+                <input type="checkbox" name="item" value="item5">
+                Item 5: Jardinagem
+            </label>
+            <label>
+                <input type="checkbox" onclick="selecionarTodos()" name="item" value="item4">
+                Item 4: marcar todos
+            </label>
+            <label>
+                <input type="checkbox" name="item" value="item1">
+                Item 1: Lasanha
+            </label>
+            <label>
+                <input type="checkbox" name="item" value="item2">
+                Item 2: Inteligência Artificial
+            </label>
+            <label>
+                <input type="checkbox" name="item" value="item3">
+                Item 3: Hamburguer
+            </label>
+            <label>
+                <input type="checkbox" onclick="selecionarTodos()" name="item" value="item4">
+                Item 4: Ferrari
+            </label>
+            <label>
+                <input type="checkbox" name="item" value="item5">
+                Item 5: PT
+            </label>
+            <label>
+                <input type="checkbox" name="item" value="item1">
+                Item 1: Futeboll
+            </label>
+            <label>
+                <input type="checkbox" onclick="selecionarTodos()" name="item" value="item2">
+                Item 2: Inteligência Artificial
+            </label>
+            <label>
+                <input type="checkbox" name="item" value="item3">
+                Item 3: Samba
+            </label>
+            <label>
+                <input type="checkbox" name="item" value="item4">
+                Item 4: Lamborguinni
+            </label>
+            <label>
+                <input type="checkbox" name="item" value="item5">
+                Item 5: Corinthians
+            </label>
+        </fieldset>
+        <script>
+            function selecionarTodos() {
+                var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(checkbox => checkbox.checked = true);
+            }
+
+            function desselecionarTodos() {
+                var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(checkbox => checkbox.checked = false);
+            }
+
+            function validarSelecao() {
+                var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                if (checkboxes.length === 10) {
+                    return true; 
+                } else {
+                    alert("Por favor, selecione exatamente 10 itens antes de enviar.");
+                    return false;
+                }
+            }
+            function voltarPagina() {
+                history.back(); // Volta para a página anterior
+            }
+
+            function startTimer(duration, display) {
+                var timer = duration, minutes, seconds;
+                setInterval(function () {
+                    minutes = parseInt(timer / 60, 10);
+                    seconds = parseInt(timer % 60, 10);
+
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                    display.textContent = minutes + ":" + seconds;
+
+                    if (--timer < 0) {
+                        timer = 0;
+                        alert("O tempo acabou!");
+                    }
+                }, 1000);
+            }
+
+            window.onload = function () {
+                var fiveMinutes = 60 * 2,
+                    display = document.querySelector('#timer');
+                startTimer(fiveMinutes, display);
+            };
+
+        </script>
+        <button type="button" onclick="selecionarTodos()">Select</button>
+        <button type="button" class="send" onclick="voltarPagina()">voltar</button>
+        <button type="submit" class="send">Enviar</button>
+    </form>
+</body>
+</html>
